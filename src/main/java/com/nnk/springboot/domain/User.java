@@ -1,20 +1,29 @@
 package com.nnk.springboot.domain;
 
+import com.nnk.springboot.ValidPassword;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
+
     @NotBlank(message = "Username is mandatory")
     private String username;
+
+    @ValidPassword
     @NotBlank(message = "Password is mandatory")
     private String password;
+
     @NotBlank(message = "FullName is mandatory")
     private String fullname;
+
     @NotBlank(message = "Role is mandatory")
     private String role;
 
@@ -56,5 +65,18 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return id.equals(user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

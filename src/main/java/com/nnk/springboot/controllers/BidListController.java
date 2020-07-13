@@ -1,55 +1,89 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.services.BidListService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
-
-@Controller
+@RestController
 public class BidListController {
-    // TODO: Inject Bid service
 
-    @RequestMapping("/bidList/list")
-    public String home(Model model)
-    {
-        // TODO: call service find all bids to show to the view
-        return "bidList/list";
+    @Autowired
+    private BidListService bidListService;
+
+    @GetMapping("/bidList/list")
+    public ModelAndView home(Model model) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("bidList", bidListService.findAllBids());
+        mav.setViewName("bidList/list");
+        return mav;
     }
 
     @GetMapping("/bidList/add")
-    public String addBidForm(BidList bid) {
-        return "bidList/add";
+    public ModelAndView addBidForm(BidList bid) {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("bidList/add");
+        return mav;
     }
+
+//    @PostMapping("/bidList/validate")
+//    public String validate(@Valid BidList bid, BindingResult result, Model model) {
+//        // TODO: check data valid and save to db, after saving return bid list
+//        return "bidList/add";
+//    }
 
     @PostMapping("/bidList/validate")
-    public String validate(@Valid BidList bid, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return bid list
-        return "bidList/add";
+    public ModelAndView validate(@Valid BidList bid, BindingResult result, Model model) {
+        ModelAndView mav = new ModelAndView();
+        if (!result.hasErrors()) {
+            bidListService.createBidList(bid);
+            model.addAttribute("bidList", bidListService.findAllBids());
+            mav.setViewName("redirect:/bidList/list");
+            return mav;
+        }
+        mav.setViewName("bidList/add");
+        return mav;
     }
 
+    //TODO: add validation that user != null? Show error message that user doesn't exist?
     @GetMapping("/bidList/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Bid by Id and to model then show to the form
-        return "bidList/update";
+    public ModelAndView showUpdateForm(@PathVariable("id") Integer id, Model model) {
+        // TODO: get Bid by Id add to model then show to the form
+        ModelAndView mav = new ModelAndView();
+        BidList bidList = bidListService.findById(id);
+        if (bidList != null) {
+            model.addAttribute("bid", bidList);
+            mav.setViewName("bidList/update");
+            return mav;
+        }
+        return mav;
     }
 
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Bid and return list Bid
-        return "redirect:/bidList/list";
+    public ModelAndView updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
+                         BindingResult result, Model model) {
+        ModelAndView mav = new ModelAndView();
+        if (result.hasErrors()) {
+            mav.setViewName("bidList/update");
+            return mav;
+        }
+        bidListService.updateBidList(bidList);
+        mav.setViewName("redirect:/bidList/list");
+        return mav;
     }
 
     @GetMapping("/bidList/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
+    public ModelAndView deleteBid(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Bid by Id and delete the bid, return to Bid list
-        return "redirect:/bidList/list";
+        ModelAndView mav = new ModelAndView();
+        bidListService.deleteBidList(id);
+        mav.setViewName("redirect:/bidList/list");
+        return mav;
     }
 }
