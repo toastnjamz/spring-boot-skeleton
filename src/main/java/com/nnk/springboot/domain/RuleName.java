@@ -1,5 +1,7 @@
 package com.nnk.springboot.domain;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
@@ -7,11 +9,12 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "rulename")
+@EntityListeners(AuditingEntityListener.class)
 public class RuleName {
     // TODO: Map columns in data table RULENAME with corresponding java fields
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String description;

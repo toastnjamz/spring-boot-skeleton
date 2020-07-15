@@ -1,5 +1,7 @@
 package com.nnk.springboot.domain;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.sql.Time;
@@ -8,11 +10,12 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "trade")
+@EntityListeners(AuditingEntityListener.class)
 public class Trade {
     // TODO: Map columns in data table TRADE with corresponding java fields
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
     private String account;
     private String type;

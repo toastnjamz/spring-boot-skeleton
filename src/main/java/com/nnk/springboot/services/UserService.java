@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,13 +36,12 @@ public class UserService {
     }
 
     public User findById(Integer id) {
-//        Optional<User> userOptional = userRepository.findById(id);
-//        if (userOptional.isPresent()) {
-//            User user = userOptional.get();
-//            return user;
-//        }
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        return user;
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return user;
+        }
+        return null;
     }
 
     public User findUserByUsername(String username) {
@@ -49,18 +49,24 @@ public class UserService {
     }
 
     public User createUser(User user) {
-        userRepository.save(user);
-        return user;
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
-    //TODO
-    public void updateUser(Integer id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        userRepository.save(user);
+    public void updateUser(User user) {
+        User updatedUser = findById(user.getId());
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        updatedUser.setPassword(encoder.encode(user.getPassword()));
+        updatedUser.setFullname(user.getFullname());
+        updatedUser.setUsername(user.getUsername());
+        updatedUser.setRole(user.getRole());
+        userRepository.save(updatedUser);
     }
 
-    //TODO
-    public void deleteUser(User user) {
-        userRepository.delete(user);
+    public void deleteUser(Integer id) {
+        if (userRepository.findById(id) != null) {
+            userRepository.deleteById(id);
+        }
     }
 }

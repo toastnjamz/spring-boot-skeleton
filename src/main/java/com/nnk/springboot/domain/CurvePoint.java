@@ -1,6 +1,7 @@
 package com.nnk.springboot.domain;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,11 +11,12 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "curvepoint")
+@EntityListeners(AuditingEntityListener.class)
 public class CurvePoint {
     // TODO: Map columns in data table CURVEPOINT with corresponding java fields
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull(message = "must not be null")

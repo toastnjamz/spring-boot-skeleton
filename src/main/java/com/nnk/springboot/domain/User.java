@@ -1,17 +1,19 @@
 package com.nnk.springboot.domain;
 
-import com.nnk.springboot.ValidPassword;
+import com.nnk.springboot.annotations.ValidPassword;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
-@Table(name = "users")
+@Table(name = "Users", catalog = "demo")
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
     @NotBlank(message = "Username is mandatory")

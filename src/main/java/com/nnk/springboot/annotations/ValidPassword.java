@@ -1,4 +1,4 @@
-package com.nnk.springboot;
+package com.nnk.springboot.annotations;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -15,5 +15,4 @@ public @interface ValidPassword {
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-
 }

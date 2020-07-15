@@ -1,21 +1,21 @@
 package com.nnk.springboot.domain;
 
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import java.sql.Date;
+import javax.validation.constraints.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "bidlist")
+@Table(name = "BidList", catalog = "demo")
+@EntityListeners(AuditingEntityListener.class)
 public class BidList {
     // TODO: Map columns in data table BIDLIST with corresponding java fields
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer BidListId;
 
     @NotBlank(message = "Account is mandatory")
@@ -25,7 +25,16 @@ public class BidList {
     private String type;
 
     //TODO: See if this even works
-    @Digits(integer = 13, fraction = 2)
+//    @NotNull(message = "Bid Quantity is mandatory")
+//    @Digits(integer = 13, fraction = 2, message="Bid Quantity must be a number")
+//    @Pattern(regexp = "^[0-9]+$")
+//    @NumberFormat(style = NumberFormat.Style.NUMBER)
+//    @Min(value = 1, message = "Bid Quantity must be greater than 1")
+//    @NotEmpty(message = "Bid Quantity is mandatory")
+//    @NotBlank(message = "Bid Quantity is mandatory")
+//    @ValidDouble
+    @Positive
+    @NonNull
     private Double bidQuantity;
 
     private Double askQuantity;
@@ -46,6 +55,9 @@ public class BidList {
     private String dealType;
     private String sourceListId;
     private String side;
+
+    public BidList() {
+    }
 
     public BidList(String account, String type, Double bidQuantity) {
         this.account = account;
