@@ -31,30 +31,13 @@ public class BidListService {
         return null;
     }
 
-//    public BidList createBidList(BidList bidList) {
-//        for (BidList bidListInList : bidListRepository.findAll()) {
-//            if (bidListInList.equals(bidList)) {
-//                return null;
-//            }
-//        }
-//        BidList newBid = new BidList();
-//        newBid.setAccount(bidList.getAccount());
-//        newBid.setType(bidList.getType());
-//        newBid.setBidQuantity(bidList.getBidQuantity());
-//        return bidListRepository.save(newBid);
-//    }
-
     public BidList createBidList(BidList bidList) {
         return bidListRepository.save(bidList);
     }
 
     public void updateBidList(BidList bidList) {
         if (bidListRepository.findById(bidList.getBidListId()) != null) {
-            BidList updatedBidList = findById(bidList.getBidListId());
-            updatedBidList.setAccount(bidList.getAccount());
-            updatedBidList.setType(bidList.getType());
-            updatedBidList.setBidQuantity(bidList.getAskQuantity());
-            bidListRepository.save(updatedBidList);
+            bidListRepository.save(bidList);
         }
     }
 

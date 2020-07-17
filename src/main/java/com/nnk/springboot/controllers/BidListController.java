@@ -44,20 +44,18 @@ public class BidListController {
         return mav;
     }
 
-    //TODO: Show error message if bid doesn't exist?
     @GetMapping("/bidList/update/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();
         BidList bidList = bidListService.findById(id);
         if (bidList != null) {
-            model.addAttribute("bid", bidList);
+            model.addAttribute("bidList", bidList);
             mav.setViewName("bidList/update");
             return mav;
         }
         return mav;
     }
 
-    //TODO: Add error message if bid doesn't exist?
     @PostMapping("/bidList/update/{id}")
     public ModelAndView updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
                          BindingResult result, Model model) {
@@ -66,13 +64,13 @@ public class BidListController {
             mav.setViewName("bidList/update");
             return mav;
         }
+        bidList.setBidListId(id);
         bidListService.updateBidList(bidList);
         model.addAttribute("bidList", bidListService.findAllBids());
         mav.setViewName("redirect:/bidList/list");
         return mav;
     }
 
-    //TODO: Add error message if bid doesn't exist?
     @GetMapping("/bidList/delete/{id}")
     public ModelAndView deleteBid(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();

@@ -1,5 +1,8 @@
 package com.nnk.springboot.domain;
 
+import org.hibernate.validator.constraints.Length;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.lang.NonNull;
 
@@ -19,20 +22,16 @@ public class BidList {
     private Integer BidListId;
 
     @NotBlank(message = "Account is mandatory")
+    @Length(max = 30)
+    @NonNull
     private String account;
 
     @NotBlank(message = "Type is mandatory")
+    @Length(max = 30)
+    @NonNull
     private String type;
 
-    //TODO: See if this even works
-//    @NotNull(message = "Bid Quantity is mandatory")
-//    @Digits(integer = 13, fraction = 2, message="Bid Quantity must be a number")
-//    @Pattern(regexp = "^[0-9]+$")
-//    @NumberFormat(style = NumberFormat.Style.NUMBER)
-//    @Min(value = 1, message = "Bid Quantity must be greater than 1")
-//    @NotEmpty(message = "Bid Quantity is mandatory")
-//    @NotBlank(message = "Bid Quantity is mandatory")
-//    @ValidDouble
+    @NotNull(message = "Bid Quantity is mandatory")
     @Positive
     @NonNull
     private Double bidQuantity;
@@ -40,20 +39,49 @@ public class BidList {
     private Double askQuantity;
     private Double bid;
     private Double ask;
+
+    @Length(max = 125)
     private String benchmark;
+
     private Timestamp bidListDate;
+
+    @Length(max = 125)
     private String commentary;
+
+    @Length(max = 125)
     private String security;
+
+    @Length(max = 10)
     private String status;
+
+    @Length(max = 125)
     private String trader;
+
+    @Length(max = 125)
     private String book;
+
+    @Length(max = 125)
     private String creationName;
+
+    @CreatedDate
     private Timestamp creationDate;
+
+    @Length(max = 125)
     private String revisionName;
+
+    @LastModifiedDate
     private Timestamp revisionDate;
+
+    @Length(max = 125)
     private String dealName;
+
+    @Length(max = 125)
     private String dealType;
+
+    @Length(max = 125)
     private String sourceListId;
+
+    @Length(max = 125)
     private String side;
 
     public BidList() {
