@@ -1,8 +1,6 @@
 package com.nnk.springboot.domain;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.lang.NonNull;
 
@@ -13,13 +11,12 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "BidList", catalog = "demo")
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class)
 public class BidList {
-    // TODO: Map columns in data table BIDLIST with corresponding java fields
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer BidListId;
+    private Integer bidListId;
 
     @NotBlank(message = "Account is mandatory")
     @Length(max = 30)
@@ -33,7 +30,6 @@ public class BidList {
 
     @NotNull(message = "Bid Quantity is mandatory")
     @Positive
-    @NonNull
     private Double bidQuantity;
 
     private Double askQuantity;
@@ -63,13 +59,11 @@ public class BidList {
     @Length(max = 125)
     private String creationName;
 
-    @CreatedDate
     private Timestamp creationDate;
 
     @Length(max = 125)
     private String revisionName;
 
-    @LastModifiedDate
     private Timestamp revisionDate;
 
     @Length(max = 125)
@@ -94,11 +88,11 @@ public class BidList {
     }
 
     public Integer getBidListId() {
-        return BidListId;
+        return bidListId;
     }
 
     public void setBidListId(Integer bidListId) {
-        BidListId = bidListId;
+        this.bidListId = bidListId;
     }
 
     public String getAccount() {
@@ -274,11 +268,11 @@ public class BidList {
         if (this == o) return true;
         if (!(o instanceof BidList)) return false;
         BidList bidList = (BidList) o;
-        return BidListId.equals(bidList.BidListId);
+        return bidListId.equals(bidList.bidListId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(BidListId);
+        return Objects.hash(bidListId);
     }
 }

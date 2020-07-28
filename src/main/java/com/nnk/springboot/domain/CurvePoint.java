@@ -1,31 +1,39 @@
 package com.nnk.springboot.domain;
 
-import org.hibernate.validator.constraints.Length;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "curvepoint")
-@EntityListeners(AuditingEntityListener.class)
+@Table(name = "CurvePoint", catalog = "demo")
+//@EntityListeners(AuditingEntityListener.class)
 public class CurvePoint {
-    // TODO: Map columns in data table CURVEPOINT with corresponding java fields
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "must not be null")
+    @NotNull(message = "Curve Id is mandatory")
     private Integer curveId;
 
     private Timestamp asOfDate;
+
+    @NotNull(message = "Term is mandatory")
+    @Positive
     private Double term;
+
+    @NotNull(message = "Value is mandatory")
+    @Positive
     private Double value;
+
     private Timestamp creationDate;
+
+    public CurvePoint() {
+    }
 
     public CurvePoint(Integer curveId, Double term, Double value) {
         this.curveId = curveId;

@@ -10,17 +10,23 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 public class BidListController {
 
     @Autowired
     private BidListService bidListService;
 
+    private static final Logger log = LoggerFactory.getLogger(BidListController.class);
+
     @GetMapping("/bidList/list")
     public ModelAndView home(Model model) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("bidList", bidListService.findAllBids());
         mav.setViewName("bidList/list");
+        log.info("GET request received for home()");
         return mav;
     }
 
@@ -28,6 +34,7 @@ public class BidListController {
     public ModelAndView addBidForm(BidList bid) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("bidList/add");
+        log.info("GET request received for addBidForm()");
         return mav;
     }
 
@@ -38,6 +45,7 @@ public class BidListController {
             bidListService.createBidList(bid);
             model.addAttribute("bidList", bidListService.findAllBids());
             mav.setViewName("redirect:/bidList/list");
+            log.info("Add BidList " + bid.toString());
             return mav;
         }
         mav.setViewName("bidList/add");
@@ -51,6 +59,7 @@ public class BidListController {
         if (bidList != null) {
             model.addAttribute("bidList", bidList);
             mav.setViewName("bidList/update");
+            log.info("GET request received for showUpdateForm()");
             return mav;
         }
         return mav;
@@ -68,6 +77,7 @@ public class BidListController {
         bidListService.updateBidList(bidList);
         model.addAttribute("bidList", bidListService.findAllBids());
         mav.setViewName("redirect:/bidList/list");
+        log.info("Update BidList " + bidList.toString());
         return mav;
     }
 
@@ -79,6 +89,7 @@ public class BidListController {
             bidListService.deleteBidList(id);
             model.addAttribute("bidList", bidListService.findAllBids());
             mav.setViewName("redirect:/bidList/list");
+            log.info("Delete BidList " + bidList.toString());
             return mav;
         }
         return mav;

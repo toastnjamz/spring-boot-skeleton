@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class BidListService {
 
-    BidListRepository bidListRepository;
+    private BidListRepository bidListRepository;
 
     @Autowired
     public BidListService(BidListRepository bidListRepository) {

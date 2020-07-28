@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "Users", catalog = "demo")
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id
