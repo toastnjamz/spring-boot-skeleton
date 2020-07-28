@@ -1,4 +1,3 @@
-
 CREATE TABLE BidList (
   BidListId tinyint(4) NOT NULL AUTO_INCREMENT,
   account VARCHAR(30) NOT NULL,
@@ -95,5 +94,4 @@ CREATE TABLE Users (
   PRIMARY KEY (Id)
 );
 
-insert into Users(fullname, username, password, role) values("Administrator", "admin", "$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa", "ADMIN");
-insert into Users(fullname, username, password, role) values("User", "user", "$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa", "USER");
+INSERT INTO `Users` VALUES (1,'admin','$2a$10$XHx416hap/aMVvWUOonSb.gy1WyRq7/2imXu5F.XARFpKriy0QrZi','Administrator','ADMIN'),(2,'user','$2a$10$k4hIoicsreG/Wag5s6ciauuV1idqiCREbrasV.9yIqTdREkT.9XCe','User','USER');

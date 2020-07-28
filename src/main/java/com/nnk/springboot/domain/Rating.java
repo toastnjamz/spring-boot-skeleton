@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Rating", catalog = "demo")
+@Table(name = "rating", catalog = "demo")
 //@EntityListeners(AuditingEntityListener.class)
 public class Rating {
 
@@ -25,6 +25,9 @@ public class Rating {
     private String fitchRating;
 
     private Integer orderNumber;
+
+    public Rating() {
+    }
 
     public Rating(String moodysRating, String sandPRating, String fitchRating, Integer orderNumber) {
         this.moodysRating = moodysRating;
