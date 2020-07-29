@@ -1,4 +1,4 @@
-# spring-boot
+# Poseidon Trading App
 ## Technical:
 
 1. Framework: Spring Boot v2.0.4
