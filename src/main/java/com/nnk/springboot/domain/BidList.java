@@ -1,7 +1,6 @@
 package com.nnk.springboot.domain;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
@@ -11,7 +10,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "BidList", catalog = "demo")
-//@EntityListeners(AuditingEntityListener.class)
 public class BidList {
 
     @Id

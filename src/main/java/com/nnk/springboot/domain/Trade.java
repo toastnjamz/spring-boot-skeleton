@@ -1,54 +1,91 @@
 package com.nnk.springboot.domain;
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.sql.Time;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "trade")
-@EntityListeners(AuditingEntityListener.class)
+@Table(name = "Trade", catalog = "demo")
 public class Trade {
-    // TODO: Map columns in data table TRADE with corresponding java fields
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id;
+    private Integer tradeId;
+
+    @NotBlank(message = "Account is mandatory")
+    @Length(max = 30)
     private String account;
+
+    @NotBlank(message = "Type is mandatory")
+    @Length(max = 30)
     private String type;
+
+    @NotNull(message = "Buy Quantity is mandatory")
+    @Positive
     private Double buyQuantity;
+
     private Double sellQuantity;
     private Double buyPrice;
     private Double sellPrice;
+
+    @Length(max = 125)
     private String benchmark;
+
     private Timestamp tradeDate;
+
+    @Length(max = 125)
     private String security;
+
+    @Length(max = 10)
     private String status;
+
+    @Length(max = 125)
     private String trader;
+
+    @Length(max = 125)
     private String book;
+
+    @Length(max = 125)
     private String creationName;
+
     private Timestamp creationDate;
+
+    @Length(max = 125)
     private String revisionName;
+
     private Timestamp revisionDate;
+
+    @Length(max = 125)
     private String dealName;
+
+    @Length(max = 125)
     private String dealType;
+
+    @Length(max = 125)
     private String sourceListId;
+
+    @Length(max = 125)
     private String side;
+
+    public Trade() {
+    }
 
     public Trade(String account, String type) {
         this.account = account;
         this.type = type;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getTradeId() {
+        return tradeId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setTradeId(Integer tradeId) {
+        this.tradeId = tradeId;
     }
 
     public String getAccount() {
@@ -216,11 +253,11 @@ public class Trade {
         if (this == o) return true;
         if (!(o instanceof Trade)) return false;
         Trade trade = (Trade) o;
-        return Objects.equals(id, trade.id);
+        return Objects.equals(tradeId, trade.tradeId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(tradeId);
     }
 }

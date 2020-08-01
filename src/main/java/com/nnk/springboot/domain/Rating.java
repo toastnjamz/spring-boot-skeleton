@@ -1,29 +1,33 @@
 package com.nnk.springboot.domain;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
-@Table(name = "rating", catalog = "demo")
-//@EntityListeners(AuditingEntityListener.class)
+@Table(name = "Rating", catalog = "demo")
 public class Rating {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "Moody's Rating is mandatory")
     @Length(max = 125)
     private String moodysRating;
 
+    @NotBlank(message = "S&P Rating is mandatory")
     @Length(max = 125)
     private String sandPRating;
 
+    @NotBlank(message = "Fitch Rating is mandatory")
     @Length(max = 125)
     private String fitchRating;
 
+    @NotNull(message = "Order is mandatory")
     private Integer orderNumber;
 
     public Rating() {

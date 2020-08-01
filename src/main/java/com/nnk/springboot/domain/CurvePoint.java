@@ -1,7 +1,5 @@
 package com.nnk.springboot.domain;
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -10,7 +8,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "CurvePoint", catalog = "demo")
-//@EntityListeners(AuditingEntityListener.class)
 public class CurvePoint {
 
     @Id

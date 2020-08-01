@@ -1,7 +1,6 @@
 package com.nnk.springboot.domain;
 
 import com.nnk.springboot.annotations.ValidPassword;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -9,7 +8,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "Users", catalog = "demo")
-//@EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id

@@ -1,27 +1,47 @@
 package com.nnk.springboot.domain;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "rulename")
+@Table(name = "RuleName", catalog = "demo")
 @EntityListeners(AuditingEntityListener.class)
 public class RuleName {
-    // TODO: Map columns in data table RULENAME with corresponding java fields
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
+
+    @NotBlank(message = "Name is mandatory")
+    @Length(max = 125)
     private String name;
+
+    @NotBlank(message = "Description is mandatory")
+    @Length(max = 125)
     private String description;
+
+    @NotBlank(message = "JSON is mandatory")
+    @Length(max = 125)
     private String json;
+
+    @NotBlank(message = "Template is mandatory")
+    @Length(max = 125)
     private String template;
+
+    @NotBlank(message = "SQLStr is mandatory")
+    @Length(max = 125)
     private String sqlStr;
+
+    @NotBlank(message = "SQLPart is mandatory")
+    @Length(max = 125)
     private String sqlPart;
+
+    public RuleName() {
+    }
 
     public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {
         this.name = name;
