@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Basic CRUD operations for User
+ * Business logic layer, separates repository from controller
+ */
 @Service
 public class UserService {
 
@@ -22,6 +26,9 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Checks if User from Authentication matches logged in User
+     */
     public User getUserFromAuth(Authentication auth) {
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             UserDetails userDetails = (UserDetails)auth.getPrincipal();

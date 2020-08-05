@@ -2,6 +2,8 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.services.BidListService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RestController
+@Api(description="CRUD operations pertaining to BidList")
 public class BidListController {
 
     @Autowired
@@ -21,6 +24,12 @@ public class BidListController {
 
     private static final Logger log = LoggerFactory.getLogger(BidListController.class);
 
+    /**
+     * Loads all Bids
+     * @param model
+     * @return modelAndView
+     */
+    @ApiOperation(value = "View a list of all Bids", response = ModelAndView.class)
     @GetMapping("/bidList/list")
     public ModelAndView home(Model model) {
         ModelAndView mav = new ModelAndView();

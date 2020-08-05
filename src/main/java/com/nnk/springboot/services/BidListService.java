@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Basic CRUD operations for BidList
+ * Business logic layer, separates repository from controller
+ */
 @Service
 public class BidListService {
 

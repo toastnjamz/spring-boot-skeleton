@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
+/**
+ * Spring Security service used to retrieve
+ * User authentication and authorization information
+ */
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
@@ -27,9 +31,7 @@ public class MyUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-        //TODO
         GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
-//        UserDetails userDetails = new UserDetails(user, user.getRoleType());
         UserDetails userDetails = (UserDetails)(new org.springframework.security.core.userdetails.User(user.getUsername(),
                 user.getPassword(), Arrays.asList(authority)));
         return userDetails;

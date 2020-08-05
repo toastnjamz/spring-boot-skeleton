@@ -2,6 +2,9 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.services.UserService;
+import io.swagger.annotations.Api;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,17 +14,20 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 @RestController
+@Api(description="CRUD operations pertaining to User")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
+    private static final Logger log = LoggerFactory.getLogger(BidListController.class);
+
     @GetMapping("/user/list")
     public ModelAndView home(Model model) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("users", userService.findAll());
-//        model.addAttribute("users", userService.findAll());
         mav.setViewName("user/list");
+        log.info("GET request received for home()");
         return mav;
     }
 
@@ -29,6 +35,7 @@ public class UserController {
     public ModelAndView addUser(User bid) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("user/add");
+        log.info("GET request received for addUser()");
         return mav;
     }
 
@@ -42,13 +49,13 @@ public class UserController {
             userService.createUser(user);
             model.addAttribute("users", userService.findAll());
             mav.setViewName("redirect:/user/list");
+            log.info("Add User " + user.toString());
             return mav;
         }
         mav.setViewName("user/add");
         return mav;
     }
 
-    //TODO: Show error message if user doesn't exist?
     @GetMapping("/user/update/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();
@@ -57,12 +64,12 @@ public class UserController {
             user.setPassword("");
             model.addAttribute("user", user);
             mav.setViewName("user/update");
+            log.info("GET request received for showUpdateForm()");
             return mav;
         }
         return mav;
     }
 
-    //TODO: Add error message if user doesn't exist?
     @PostMapping("/user/update/{id}")
     public ModelAndView updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
@@ -75,10 +82,10 @@ public class UserController {
         userService.updateUser(user);
         model.addAttribute("users", userService.findAll());
         mav.setViewName("redirect:/user/list");
+        log.info("Update User " + user.toString());
         return mav;
     }
 
-    //TODO: Add error message if user doesn't exist?
     @GetMapping("/user/delete/{id}")
     public ModelAndView deleteUser(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();
@@ -87,6 +94,7 @@ public class UserController {
             userService.deleteUser(id);
             model.addAttribute("users", userService.findAll());
             mav.setViewName("redirect:/user/list");
+            log.info("Delete User " + user.toString());
             return mav;
         }
         return mav;
