@@ -17,6 +17,10 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Loads login form
+     * @return ModelAndView
+     */
     @GetMapping("/login")
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView();
@@ -24,6 +28,10 @@ public class LoginController {
         return mav;
     }
 
+    /**
+     * Loads admin user list page
+     * @return ModelAndView
+     */
     @GetMapping("/app/secure/article-details")
     public ModelAndView getAllUserArticles() {
         ModelAndView mav = new ModelAndView();
@@ -39,6 +47,10 @@ public class LoginController {
         return mav;
     }
 
+    /**
+     * Directs unauthorized users to custom forbidden page
+     * @return ModelAndView
+     */
     @GetMapping("/app/error")
     public ModelAndView error() {
         ModelAndView mav = new ModelAndView();

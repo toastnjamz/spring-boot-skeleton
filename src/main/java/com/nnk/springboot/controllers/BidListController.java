@@ -25,9 +25,9 @@ public class BidListController {
     private static final Logger log = LoggerFactory.getLogger(BidListController.class);
 
     /**
-     * Loads all Bids
+     * Loads all BidLists
      * @param model
-     * @return modelAndView
+     * @return ModelAndView
      */
     @ApiOperation(value = "View a list of all Bids", response = ModelAndView.class)
     @GetMapping("/bidList/list")
@@ -39,6 +39,11 @@ public class BidListController {
         return mav;
     }
 
+    /**
+     * Loads BidList add form
+     * @param bid
+     * @return ModelAndView
+     */
     @GetMapping("/bidList/add")
     public ModelAndView addBidForm(BidList bid) {
         ModelAndView mav = new ModelAndView();
@@ -47,6 +52,13 @@ public class BidListController {
         return mav;
     }
 
+    /**
+     * Validates and creates a new BidList
+     * @param bid
+     * @param result
+     * @param model
+     * @return ModelAndView
+     */
     @PostMapping("/bidList/validate")
     public ModelAndView validate(@Valid BidList bid, BindingResult result, Model model) {
         ModelAndView mav = new ModelAndView();
@@ -61,6 +73,12 @@ public class BidListController {
         return mav;
     }
 
+    /**
+     * Navigates to the update form for the requested BidList
+     * @param id
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/bidList/update/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();
@@ -74,6 +92,14 @@ public class BidListController {
         return mav;
     }
 
+    /**
+     * Validates and updates the requested BidList
+     * @param id
+     * @param bidList
+     * @param result
+     * @param model
+     * @return ModelAndView
+     */
     @PostMapping("/bidList/update/{id}")
     public ModelAndView updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
                          BindingResult result, Model model) {
@@ -90,6 +116,12 @@ public class BidListController {
         return mav;
     }
 
+    /**
+     * Deletes the requested BidList
+     * @param id
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/bidList/delete/{id}")
     public ModelAndView deleteBid(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();

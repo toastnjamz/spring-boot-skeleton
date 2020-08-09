@@ -22,6 +22,11 @@ public class RatingController {
 
     private static final Logger log = LoggerFactory.getLogger(BidListController.class);
 
+    /**
+     * Loads all Ratings
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/rating/list")
     public ModelAndView home(Model model) {
         ModelAndView mav = new ModelAndView();
@@ -31,6 +36,11 @@ public class RatingController {
         return mav;
     }
 
+    /**
+     * Loads Rating add form
+     * @param rating
+     * @return ModelAndView
+     */
     @GetMapping("/rating/add")
     public ModelAndView addRatingForm(Rating rating) {
         ModelAndView mav = new ModelAndView();
@@ -39,6 +49,13 @@ public class RatingController {
         return mav;
     }
 
+    /**
+     * Validates and creates a new Rating
+     * @param rating
+     * @param result
+     * @param model
+     * @return ModelAndView
+     */
     @PostMapping("/rating/validate")
     public ModelAndView validate(@Valid Rating rating, BindingResult result, Model model) {
         ModelAndView mav = new ModelAndView();
@@ -53,6 +70,12 @@ public class RatingController {
         return mav;
     }
 
+    /**
+     * Navigates to the update form for the requested Rating
+     * @param id
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/rating/update/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();
@@ -66,6 +89,14 @@ public class RatingController {
         return mav;
     }
 
+    /**
+     * Validates and updates the requested Rating
+     * @param id
+     * @param rating
+     * @param result
+     * @param model
+     * @return ModelAndView
+     */
     @PostMapping("/rating/update/{id}")
     public ModelAndView updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                                      BindingResult result, Model model) {
@@ -82,6 +113,12 @@ public class RatingController {
         return mav;
     }
 
+    /**
+     * Deletes the requested Rating
+     * @param id
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/rating/delete/{id}")
     public ModelAndView deleteRating(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();

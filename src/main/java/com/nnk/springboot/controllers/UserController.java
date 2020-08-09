@@ -22,6 +22,11 @@ public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(BidListController.class);
 
+    /**
+     * Loads all Users
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/user/list")
     public ModelAndView home(Model model) {
         ModelAndView mav = new ModelAndView();
@@ -31,6 +36,11 @@ public class UserController {
         return mav;
     }
 
+    /**
+     * Loads User add form
+     * @param bid
+     * @return ModelAndView
+     */
     @GetMapping("/user/add")
     public ModelAndView addUser(User bid) {
         ModelAndView mav = new ModelAndView();
@@ -39,6 +49,13 @@ public class UserController {
         return mav;
     }
 
+    /**
+     * Validates and creates a new User
+     * @param user
+     * @param result
+     * @param model
+     * @return ModelAndView
+     */
     @PostMapping("/user/validate")
     public ModelAndView validate(@Valid User user, BindingResult result, Model model) {
         ModelAndView mav = new ModelAndView();
@@ -56,6 +73,12 @@ public class UserController {
         return mav;
     }
 
+    /**
+     * Navigates to the update form for the requested User
+     * @param id
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/user/update/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();
@@ -70,6 +93,14 @@ public class UserController {
         return mav;
     }
 
+    /**
+     * Validates and updates the requested User
+     * @param id
+     * @param user
+     * @param result
+     * @param model
+     * @return ModelAndView
+     */
     @PostMapping("/user/update/{id}")
     public ModelAndView updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
@@ -86,6 +117,12 @@ public class UserController {
         return mav;
     }
 
+    /**
+     * Deletes the requested User
+     * @param id
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/user/delete/{id}")
     public ModelAndView deleteUser(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();

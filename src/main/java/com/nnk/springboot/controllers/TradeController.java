@@ -1,6 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.services.TradeService;
 import io.swagger.annotations.Api;
@@ -23,6 +22,11 @@ public class TradeController {
 
     private static final Logger log = LoggerFactory.getLogger(BidListController.class);
 
+    /**
+     * Loads all Trades
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/trade/list")
     public ModelAndView home(Model model) {
         ModelAndView mav = new ModelAndView();
@@ -32,6 +36,11 @@ public class TradeController {
         return mav;
     }
 
+    /**
+     * Loads Trade add form
+     * @param trade
+     * @return ModelAndView
+     */
     @GetMapping("/trade/add")
     public ModelAndView addTradeForm(Trade trade) {
         ModelAndView mav = new ModelAndView();
@@ -40,6 +49,13 @@ public class TradeController {
         return mav;
     }
 
+    /**
+     * Validates and creates a new Trade
+     * @param trade
+     * @param result
+     * @param model
+     * @return ModelAndView
+     */
     @PostMapping("/trade/validate")
     public ModelAndView validate(@Valid Trade trade, BindingResult result, Model model) {
         ModelAndView mav = new ModelAndView();
@@ -54,6 +70,12 @@ public class TradeController {
         return mav;
     }
 
+    /**
+     * Navigates to the update form for the requested Trade
+     * @param id
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/trade/update/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();
@@ -67,6 +89,14 @@ public class TradeController {
         return mav;
     }
 
+    /**
+     * Validates and updates the requested Trade
+     * @param id
+     * @param trade
+     * @param result
+     * @param model
+     * @return ModelAndView
+     */
     @PostMapping("/trade/update/{id}")
     public ModelAndView updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
                                      BindingResult result, Model model) {
@@ -83,6 +113,12 @@ public class TradeController {
         return mav;
     }
 
+    /**
+     * Deletes the requested Trade
+     * @param id
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/trade/delete/{id}")
     public ModelAndView deleteTrade(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();

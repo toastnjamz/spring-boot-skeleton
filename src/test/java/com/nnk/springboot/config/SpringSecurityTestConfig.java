@@ -1,6 +1,5 @@
 package com.nnk.springboot.config;
 
-import com.sun.tools.javac.util.List;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -18,9 +17,9 @@ public class SpringSecurityTestConfig {
     @Primary
     public UserDetailsService userDetailsService() {
         User regularUser = new User("regularUser", "TestPassword1!",
-                List.of(new SimpleGrantedAuthority("USER")));
+                Arrays.asList (new SimpleGrantedAuthority("USER")));
         User adminUser = new User("adminUser", "TestPassword1!",
-                List.of(new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority("USER")));
+                Arrays.asList(new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority("USER")));
 
         return new InMemoryUserDetailsManager(Arrays.asList(regularUser, adminUser));
     }

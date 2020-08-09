@@ -22,6 +22,11 @@ public class RuleNameController {
 
     private static final Logger log = LoggerFactory.getLogger(BidListController.class);
 
+    /**
+     * Loads all RuleNames
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/ruleName/list")
     public ModelAndView home(Model model) {
         ModelAndView mav = new ModelAndView();
@@ -31,6 +36,11 @@ public class RuleNameController {
         return mav;
     }
 
+    /**
+     * Loads RuleName add form
+     * @param ruleName
+     * @return ModelAndView
+     */
     @GetMapping("/ruleName/add")
     public ModelAndView addRuleForm(RuleName ruleName) {
         ModelAndView mav = new ModelAndView();
@@ -39,6 +49,13 @@ public class RuleNameController {
         return mav;
     }
 
+    /**
+     * Validates and creates a new RuleName
+     * @param ruleName
+     * @param result
+     * @param model
+     * @return ModelAndView
+     */
     @PostMapping("/ruleName/validate")
     public ModelAndView validate(@Valid RuleName ruleName, BindingResult result, Model model) {
         ModelAndView mav = new ModelAndView();
@@ -53,6 +70,12 @@ public class RuleNameController {
         return mav;
     }
 
+    /**
+     * Navigates to the update form for the requested RuleName
+     * @param id
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/ruleName/update/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();
@@ -66,6 +89,14 @@ public class RuleNameController {
         return mav;
     }
 
+    /**
+     * Validates and updates the requested RuleName
+     * @param id
+     * @param ruleName
+     * @param result
+     * @param model
+     * @return ModelAndView
+     */
     @PostMapping("/ruleName/update/{id}")
     public ModelAndView updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
                                        BindingResult result, Model model) {
@@ -82,6 +113,12 @@ public class RuleNameController {
         return mav;
     }
 
+    /**
+     * Deletes the requested RuleName
+     * @param id
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/ruleName/delete/{id}")
     public ModelAndView deleteRuleName(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();

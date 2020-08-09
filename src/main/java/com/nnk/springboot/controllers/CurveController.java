@@ -22,6 +22,11 @@ public class CurveController {
 
     private static final Logger log = LoggerFactory.getLogger(BidListController.class);
 
+    /**
+     * Loads all CurvePoints
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/curvePoint/list")
     public ModelAndView home(Model model) {
         ModelAndView mav = new ModelAndView();
@@ -31,6 +36,11 @@ public class CurveController {
         return mav;
     }
 
+    /**
+     * Loads CurvePoint add form
+     * @param curvePoint
+     * @return ModelAndView
+     */
     @GetMapping("/curvePoint/add")
     public ModelAndView addCurvePointForm(CurvePoint curvePoint) {
         ModelAndView mav = new ModelAndView();
@@ -39,6 +49,13 @@ public class CurveController {
         return mav;
     }
 
+    /**
+     * Validates and creates a new CurvePoint
+     * @param curvePoint
+     * @param result
+     * @param model
+     * @return ModelAndView
+     */
     @PostMapping("/curvePoint/validate")
     public ModelAndView validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
         ModelAndView mav = new ModelAndView();
@@ -53,6 +70,12 @@ public class CurveController {
         return mav;
     }
 
+    /**
+     * Navigates to the update form for the requested CurvePoint
+     * @param id
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/curvePoint/update/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();
@@ -66,6 +89,14 @@ public class CurveController {
         return mav;
     }
 
+    /**
+     * Validates and updates the requested CurvePoint
+     * @param id
+     * @param curvePoint
+     * @param result
+     * @param model
+     * @return ModelAndView
+     */
     @PostMapping("/curvePoint/update/{id}")
     public ModelAndView updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
                                   BindingResult result, Model model) {
@@ -82,6 +113,12 @@ public class CurveController {
         return mav;
     }
 
+    /**
+     * Deletes the requested CurvePoint
+     * @param id
+     * @param model
+     * @return ModelAndView
+     */
     @GetMapping("/curvePoint/delete/{id}")
     public ModelAndView deleteCurvePoint(@PathVariable("id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView();

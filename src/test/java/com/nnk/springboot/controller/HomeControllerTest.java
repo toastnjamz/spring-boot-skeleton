@@ -1,12 +1,14 @@
 package com.nnk.springboot.controller;
 
 import com.nnk.springboot.config.SpringSecurityTestConfig;
+import com.nnk.springboot.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,9 +18,9 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@AutoConfigureMockMvc
 @SpringBootTest(classes = {SpringSecurityTestConfig.class})
 @RunWith(SpringRunner.class)
-@AutoConfigureMockMvc
 public class HomeControllerTest {
 
     @Autowired
@@ -26,6 +28,9 @@ public class HomeControllerTest {
 
     @Autowired
     private WebApplicationContext webContext;
+
+    @MockBean
+    private UserService userServiceMock;
 
     @Before
     public void setup() {
